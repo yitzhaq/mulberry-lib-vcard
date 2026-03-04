@@ -69,12 +69,12 @@ void CVCardAddress::SetFullAddress(const cdstring& data)
 	}
 	else if (items.size() == eMaxIndex - 1)
 	{
-		for(int i = eExtended; i < eMaxIndex; i++)
+		for(size_t i = eExtended; i < eMaxIndex; i++)
 			mItems[i] = items[i-1];
 	}
 	else
 	{
-		for(int i = 0; i < items.size(); i++)
+		for(size_t i = 0; i < items.size(); i++)
 			mItems[eStreet + i] = items[i];
 	}
 }
