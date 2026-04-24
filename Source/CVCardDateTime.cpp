@@ -88,7 +88,7 @@ int CVCardDateTime::CompareDateTime(const CVCardDateTime& comp) const
 	}
 	
 	// If they have the same timezone do simple compare - no posix calc needed
-	else if (mTimezoneOffset == mTimezoneOffset)
+	else if (mTimezoneOffset == comp.mTimezoneOffset)
 	{
 		if (mYear == comp.mYear)
 		{
