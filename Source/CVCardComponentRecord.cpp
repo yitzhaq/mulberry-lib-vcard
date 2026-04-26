@@ -161,7 +161,7 @@ void CVCardComponentRecord::ReadXML(CVCardComponentRecordDB& recorder, const xml
 		return;
 	
 	// Get action
-	ERecordAction action;
+	ERecordAction action = eAdded;
 	cdstring temp;
 	if (!xmlnode->AttributeValue(cXMLAttribute_action, temp))
 		return;
@@ -173,6 +173,8 @@ void CVCardComponentRecord::ReadXML(CVCardComponentRecordDB& recorder, const xml
 		action = eRemoved;
 	else if (temp == cXMLAttribute_action_removedadded)
 		action = eRemovedAdded;
+	else
+		return;
 	
 	// Get mapkey
 	cdstring mapkey;
