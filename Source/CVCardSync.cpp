@@ -169,7 +169,7 @@ void CVCardSync::Sync()
 	}
 
 	// Step 6
-	if (adbk1_changed) ;
+	if (adbk1_changed) { /* TODO: handle address book changes */ }
 }
 
 // NB Assumes components are the same but different versions

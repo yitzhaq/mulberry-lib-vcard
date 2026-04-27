@@ -250,12 +250,16 @@ bool CVCardProperty::Parse(cdstring& data)
 
 	// Look for attribute or value delimiter
 	{
-		std::auto_ptr<char> prop_name(::strduptokenstr(&p, ";:"));
-		if ((prop_name.get() == NULL) || (*p == 0))
+		char* prop_name_raw = ::strduptokenstr(&p, ";:");
+		if ((prop_name_raw == NULL) || (*p == 0))
+		{
+			::free(prop_name_raw);
 			return false;
+		}
 
 		// We have the name
-		mName.assign(prop_name.get());
+		mName.assign(prop_name_raw);
+		::free(prop_name_raw);
 		
 		// See if its a group
 		cdstring::size_type pos = mName.find('.');
@@ -282,24 +286,32 @@ bool CVCardProperty::Parse(cdstring& data)
 				p++;
 
 				// Get quoted string or token
-				std::auto_ptr<char> attribute_name(::strduptokenstr(&p, "="));
-				if (attribute_name.get() == NULL)
+				char* attr_name_raw = ::strduptokenstr(&p, "=");
+				if (attr_name_raw == NULL)
 					return false;
 				p++;
-				std::auto_ptr<char> attribute_value(::strduptokenstr(&p, ":;,"));
-				if (attribute_value.get() == NULL)
+				char* attr_value_raw = ::strduptokenstr(&p, ":;,");
+				if (attr_value_raw == NULL)
+				{
+					::free(attr_name_raw);
 					return false;
+				}
 
 				// Now add attribute value
-				CVCardAttribute attrvalue(attribute_name.get(), attribute_value.get());
+				CVCardAttribute attrvalue(attr_name_raw, attr_value_raw);
+				::free(attr_name_raw);
+				::free(attr_value_raw);
 
 				// Look for additional values
 				while(*p == ',')
 				{
 					p++;
-					std::auto_ptr<char> attribute_value2(::strduptokenstr(&p, ":;,"));
-					if (attribute_value2.get() != NULL)
-						attrvalue.AddValue(attribute_value2.get());
+					char* attr_value2_raw = ::strduptokenstr(&p, ":;,");
+					if (attr_value2_raw != NULL)
+					{
+						attrvalue.AddValue(attr_value2_raw);
+						::free(attr_value2_raw);
+					}
 				}
 				mAttributes.insert(CVCardAttributeMap::value_type(attrvalue.GetName(), attrvalue));
 			}
