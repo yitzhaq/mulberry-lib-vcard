@@ -30,7 +30,7 @@
 
 #include "XMLDocument.h"
 #include "XMLNode.h"
-#include "XMLSAXSimple.h"
+#include "XMLSAXDefault.h"
 
 #include <algorithm>
 #include <cstring>
@@ -413,7 +413,7 @@ void CVCardAddressBook::ParseCache(std::istream& is)
 	mRecordDB.clear();
 
 	// XML parse the data
-	xmllib::XMLSAXSimple parser;
+	xmllib::XMLSAXDefault parser;
 	parser.ParseStream(is);
 
 	// See if we got any valid XML
