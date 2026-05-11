@@ -149,10 +149,10 @@ int64_t CVCardDateTime::GetPosixTime() const
 	return result;
 }
 
-int32_t	CVCardDateTime::DaysSince1970() const
+int64_t	CVCardDateTime::DaysSince1970() const
 {
 	// Add days betweenn 1970 and current year (ignoring leap days)
-	int32_t result = (mYear - 1970) * 365L;
+	int64_t result = (mYear - 1970) * 365L;
 
 	// Add leap days between years
 	result += CVCardUtils::LeapDaysSince1970(mYear - 1970);

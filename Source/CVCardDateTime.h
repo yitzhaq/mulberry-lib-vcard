@@ -177,7 +177,7 @@ private:
 	
 	cdstring TimeZoneDescriptor() const;
 	
-	int32_t	DaysSince1970() const;
+	int64_t	DaysSince1970() const;
 
 };
 
