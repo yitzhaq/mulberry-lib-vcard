@@ -57,6 +57,7 @@ CVCardAddressBook::CVCardAddressBook()
 
 	mReadOnly = false;
 	mDirty = false;
+	mTotalReplace = false;
 }
 
 CVCardAddressBook::~CVCardAddressBook()
